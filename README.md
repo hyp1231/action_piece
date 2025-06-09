@@ -91,16 +91,10 @@ Set permutation regularization (SPR) during
 
 ## Tokenizers
 
-We provide the pretrained tokenizers for the three datasets used in our paper.
-You can find them under `cache/AmazonReviews2014/`:
+After the first run on each dataset, the provided code automatically constructs
+and caches the tokenizer vocabulary. The cached tokenizer follows a structure
+like:
 
-* `Sports_and_Outdoors/processed/actionpiece.json`
-
-* `Beauty/processed/actionpiece.json`
-
-* `CDs_and_Vinyl/processed/actionpiece.json`
-
-The pretrained tokenizers follow a structure like:
 ```json
 {
     "n_categories": 5,
