@@ -157,12 +157,21 @@ def log(message, accelerator, logger, level='info'):
       level (str): The log level ('info', 'error', 'warning', 'debug').
   """
   if accelerator.is_main_process:
+    # Map level names to their numeric values for compatibility with older Python versions
+    level_mapping = {
+        'DEBUG': logging.DEBUG,
+        'INFO': logging.INFO,
+        'WARNING': logging.WARNING,
+        'ERROR': logging.ERROR,
+        'CRITICAL': logging.CRITICAL
+    }
+    
     try:
-      level = logging.getLevelNamesMapping()[level.upper()]
+      level_num = level_mapping[level.upper()]
     except KeyError as exc:
       raise ValueError(f'Invalid log level: {level}') from exc
 
-    logger.log(level, message)
+    logger.log(level_num, message)
 
 
 def get_tokenizer(model_name: str):
