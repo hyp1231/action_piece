@@ -190,7 +190,7 @@ def get_tokenizer(model_name: str):
   module_name = f'genrec.models.{model_name}.tokenizer'
   try:
     module = importlib.import_module(module_name)
-    getattr(module, f'{model_name}Tokenizer')
+    return getattr(module, f'{model_name}Tokenizer')
   except Exception as exc:
     raise ValueError(f'Tokenizer for model "{model_name}" not found.') from exc
 
