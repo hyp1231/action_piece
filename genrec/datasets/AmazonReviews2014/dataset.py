@@ -330,7 +330,7 @@ class AmazonReviews2014(AbstractDataset):
     """
     self.log('[DATASET] Extracting meta sentences...')
     item2meta = {}
-    for item, meta in tqdm(metadata.items()):
+    for item, meta in tqdm.tqdm(metadata.items()):
       meta_sentence = ''
       keys = set(meta.keys())
       features_needed = [
