@@ -256,11 +256,14 @@ def get_trainer(model_name: Union[str, AbstractModel]):
   """
   from genrec.trainer import Trainer
   if isinstance(model_name, str):
-    trainer_class = getattr(
-        importlib.import_module(f'genrec.models.{model_name}.trainer'),
-        f'{model_name}Trainer',
-    )
-    return trainer_class
+    try:
+      trainer_class = getattr(
+          importlib.import_module(f'genrec.models.{model_name}.trainer'),
+          f'{model_name}Trainer',
+      )
+      return trainer_class
+    except (ImportError, AttributeError):
+      return Trainer
 
   return Trainer
 
