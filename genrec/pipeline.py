@@ -17,7 +17,7 @@
 
 import logging
 import os
-from typing import Any
+from typing import Any, Dict, Union
 
 import accelerate as accelerate_lib
 from genrec import utils
@@ -59,11 +59,11 @@ class Pipeline:
 
   def __init__(
       self,
-      model_name: str | AbstractModel,
-      dataset_name: str | AbstractDataset,
-      tokenizer: AbstractTokenizer | None = None,
+      model_name: Union[str, AbstractModel],
+      dataset_name: Union[str, AbstractDataset],
+      tokenizer: Union[AbstractTokenizer, None] = None,
       trainer=None,
-      config_dict: dict[str, Any] | None = None,
+      config_dict: Union[Dict[str, Any], None] = None,
       config_file: str = None,
   ):
     self.config = utils.get_config(
