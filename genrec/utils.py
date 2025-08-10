@@ -30,7 +30,6 @@ import accelerate.utils
 import datasets.utils.logging
 from genrec.dataset import AbstractDataset
 from genrec.model import AbstractModel
-from genrec.trainer import Trainer
 import numpy as np
 import requests
 import torch
@@ -246,6 +245,7 @@ def get_trainer(model_name: Union[str, AbstractModel]):
       trainer_class: The trainer class corresponding to the given model name. If
       the model name is not found, the default Trainer class is returned.
   """
+  from genrec.trainer import Trainer
   if isinstance(model_name, str):
     trainer_class = getattr(
         importlib.import_module(f'genrec.models.{model_name}.trainer'),
