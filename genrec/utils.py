@@ -286,6 +286,18 @@ def _convert_value(value: str) -> Any:
     return True
   if value.lower() == 'false':
     return False
+  
+  # Try to use eval for complex types (list, dict, tuple) but with safety checks
+  try:
+    new_v = eval(value)
+    if new_v is not None and isinstance(
+        new_v, (str, int, float, bool, list, dict, tuple)
+    ):
+      return new_v
+  except (NameError, SyntaxError, TypeError, ValueError):
+    pass
+  
+  # Try basic numeric conversions
   try:
     return int(value)
   except ValueError:
@@ -294,10 +306,7 @@ def _convert_value(value: str) -> Any:
     return float(value)
   except ValueError:
     pass
-  try:
-    return list(map(lambda x: x.strip(), value.strip('[]').split(',')))
-  except (ValueError, TypeError):
-    pass
+  
   return value
 
 
