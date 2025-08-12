@@ -151,15 +151,17 @@ class Pipeline:
     train_dataloader = get_dataloader(
         'train', self.config['train_batch_size'], True
     )
+    val_dataloader = get_dataloader(
+        'val', self.config['eval_batch_size'], False
+    )
     if self.config['n_inference_ensemble'] == -1:
-      eval_batch_size = self.config['eval_batch_size']
+      test_batch_size = self.config['eval_batch_size']
     else:
-      eval_batch_size = max(
+      test_batch_size = max(
           self.config['eval_batch_size'] // self.config['n_inference_ensemble'],
           1,
       )
-    val_dataloader = get_dataloader('val', eval_batch_size, False)
-    test_dataloader = get_dataloader('test', eval_batch_size, False)
+    test_dataloader = get_dataloader('test', test_batch_size, False)
 
     self.trainer.fit(train_dataloader, val_dataloader)
 
